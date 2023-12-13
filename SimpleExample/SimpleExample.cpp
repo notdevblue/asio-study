@@ -15,7 +15,7 @@
 #include <asio/ts/internet.hpp>
 // 네트워크 통신을 위한 것들을 해줌
 
-int main() {
+int main1() {
 
 	asio::error_code ec;
 
