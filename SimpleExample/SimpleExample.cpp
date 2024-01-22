@@ -1,11 +1,13 @@
 #include <iostream>
 
-#ifdef _WIN32
-#define _WIN32_WINNT 0x0A00
-// 윈도우 버전 마다 소켓 헨들링이 다르기 때문에
-// 미리 정의를 해줌
-// 기본값도 있긴 함
-#endif
+// #ifdef _WIN32
+// #define _WIN32_WINNT 0x0A00
+// // 윈도우 버전 마다 소켓 헨들링이 다르기 때문에
+// // 미리 정의를 해줌
+// // 기본값도 있긴 함
+// #endif
+
+
 
 #define ASIO_STANDALONE // 부스트 라이브러리 안 씀
 
@@ -15,7 +17,7 @@
 #include <asio/ts/internet.hpp>
 // 네트워크 통신을 위한 것들을 해줌
 
-int main1() {
+int main() {
 
 	asio::error_code ec;
 
