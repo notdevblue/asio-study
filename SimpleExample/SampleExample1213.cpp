@@ -10,26 +10,26 @@
 #include <asio/ts/buffer.hpp>
 #include <asio/ts/internet.hpp>
 
-// µ¥ÀÌÅÍ°¡ ¾ó¸¶³ª Å«Áö ÇÑ¹ø¿¡ ¾Ë ¼ö ¾øÀ¸´Ï Àû´çÇÏ°Ô Å« »çÀÌÁîÀÇ ¹öÆÛ¸¦ ¸¸µé°í Àç»ç¿ëÇÒ°ÅÀÓ
-// ±×¸®°í µ¥ÀÌÅÍ ÀÐ±â¸¦ asio °¡ ´ã´çÇÏ°Ô ÇÒ ÇÔ¼ö¸¦ ¸¸µé ¿¹Á¤ÀÌ±â ¶§¹®¿¡ ¸ÞÀÎ ÇÔ¼ö ½ºÄÚÇÁ ¹Û¿¡ ¸¸µé¾î µÑ °Í
+// ë°ì´í„°ê°€ ì–¼ë§ˆë‚˜ í°ì§€ í•œë²ˆì— ì•Œ ìˆ˜ ì—†ìœ¼ë‹ˆ ì ë‹¹í•˜ê²Œ í° ì‚¬ì´ì¦ˆì˜ ë²„í¼ë¥¼ ë§Œë“¤ê³  ìž¬ì‚¬ìš©í• ê±°ìž„
+// ê·¸ë¦¬ê³  ë°ì´í„° ì½ê¸°ë¥¼ asio ê°€ ë‹´ë‹¹í•˜ê²Œ í•  í•¨ìˆ˜ë¥¼ ë§Œë“¤ ì˜ˆì •ì´ê¸° ë•Œë¬¸ì— ë©”ì¸ í•¨ìˆ˜ ìŠ¤ì½”í”„ ë°–ì— ë§Œë“¤ì–´ ë‘˜ ê²ƒ
 std::vector<char> vBuffer(1 * 1024);
-// ¹öÆÛÀÇ Å©±â°¡ µ¥ÀÌÅÍº¸´Ù ÀÛ¾Æµµ
-// ¹öÆÛ Å©±â ¸¸Å­ °è¼Ó ÀÐ¾î ³ª°¨
-// ±×¸®°í Å©±â°¡ ¹öÆÛ º¸´Ù ÀÛ¾Æµµ ¹®Á¦ ¾øÀÌ Å©±â ¸¹Å­ ÀÐÀ½
+// ë²„í¼ì˜ í¬ê¸°ê°€ ë°ì´í„°ë³´ë‹¤ ìž‘ì•„ë„
+// ë²„í¼ í¬ê¸° ë§Œí¼ ê³„ì† ì½ì–´ ë‚˜ê°
+// ê·¸ë¦¬ê³  í¬ê¸°ê°€ ë²„í¼ ë³´ë‹¤ ìž‘ì•„ë„ ë¬¸ì œ ì—†ì´ í¬ê¸° ë§Ží¼ ì½ìŒ
 
 void GrapSomeData(asio::ip::tcp::socket& socket) {
 
-	// asio ¸¦ synchronous ·Î »ç¿ëÇÒ ¶§´Â ÀÌ ÇÔ¼ö¸¦ »ç¿ëÇÔ
+	// asio ë¥¼ synchronous ë¡œ ì‚¬ìš©í•  ë•ŒëŠ” ì´ í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•¨
 	// socket.read_some(asio::buffer(vBuffer.data(), vBuffer.size()), ec);
 	
-	// asynchronous ·Î »ç¿ëÇÏ±â À§ÇØ async_read_some ¸¦ È£ÃâÇÔ
-	// Ã³À½°ú °°ÀÌ ¹öÆÛ¸¦ Àü´ÞÇÔ. ÇÏÁö¸¸ ¶÷´Ù ÇÔ¼öµµ Àü´ÞÇØ¾ß ÇÔ
-	// ¾Æ·¹ ÇÔ¼ö´Â async ÀÌ±â ¶§¹®¿¡ ¹Ù·Î ¹«¾ð°¥ ÇÏÁö ¾ÊÀ½
-	// ´ë½Å ¼ÒÄÏÀÌ ¹«¾ð°¡ µ¥ÀÌÅÍ¸¦ ÀÐÀ» ÁØºñ°¡ µÇ¾ú´Ù¸é ±× µ¥ÀÌÅÍ¸¦ ÀÐÀ» ÁØºñ¸¦ ÇÔ 
-	// ±×¸®°í ¿ì¸®°¡ ÁÙ ÀÏÀº °£´ÜÇÏ°Ô ¼ÒÄÏ¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀÐ°í À§¿¡ ¸¸µç ¹öÆÛ¿¡ ³Ö°í, È­¸é¿¡ Ãâ·ÂÇÏ´Â°ÅÀÓ
-	// ±×·¡¼­ ¶÷´Ù¸¦ Àü´ÞÇÔ
+	// asynchronous ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ async_read_some ë¥¼ í˜¸ì¶œí•¨
+	// ì²˜ìŒê³¼ ê°™ì´ ë²„í¼ë¥¼ ì „ë‹¬í•¨. í•˜ì§€ë§Œ ëžŒë‹¤ í•¨ìˆ˜ë„ ì „ë‹¬í•´ì•¼ í•¨
+	// ì•„ë ˆ í•¨ìˆ˜ëŠ” async ì´ê¸° ë•Œë¬¸ì— ë°”ë¡œ ë¬´ì–¸ê°ˆ í•˜ì§€ ì•ŠìŒ
+	// ëŒ€ì‹  ì†Œì¼“ì´ ë¬´ì–¸ê°€ ë°ì´í„°ë¥¼ ì½ì„ ì¤€ë¹„ê°€ ë˜ì—ˆë‹¤ë©´ ê·¸ ë°ì´í„°ë¥¼ ì½ì„ ì¤€ë¹„ë¥¼ í•¨ 
+	// ê·¸ë¦¬ê³  ìš°ë¦¬ê°€ ì¤„ ì¼ì€ ê°„ë‹¨í•˜ê²Œ ì†Œì¼“ì—ì„œ ë°ì´í„°ë¥¼ ì½ê³  ìœ„ì— ë§Œë“  ë²„í¼ì— ë„£ê³ , í™”ë©´ì— ì¶œë ¥í•˜ëŠ”ê±°ìž„
+	// ê·¸ëž˜ì„œ ëžŒë‹¤ë¥¼ ì „ë‹¬í•¨
 	socket.async_read_some(asio::buffer(vBuffer.data(), vBuffer.size()),
-		[&](std::error_code ec, std::size_t length) { // ¿¡·¯ ÄÚµå¿Í read_some ÇÔ¼ö¿¡¼­ ÀÐÀº µ¥ÀÌÅÍÀÇ ±æÀÌ¸¦ Àü´ÞÇÔ
+		[&](std::error_code ec, std::size_t length) { // ì—ëŸ¬ ì½”ë“œì™€ read_some í•¨ìˆ˜ì—ì„œ ì½ì€ ë°ì´í„°ì˜ ê¸¸ì´ë¥¼ ì „ë‹¬í•¨
 			if (!ec) {
 				std::cout << "\n\nRead " << length << " bytes\n\n";
 
@@ -40,18 +40,18 @@ void GrapSomeData(asio::ip::tcp::socket& socket) {
 				GrapSomeData(socket);
 			}
 
-			// ¿¡·¯ ÄÚµå°¡ ¾ø´Ù¸é ¾ó¸¶³ª ¸¹Àº ¹ÙÀÌÆ®¸¦ ¹Þ¾Ò´ÂÁö Ç¥½ÃÇÏ°í,
-			// length ¸¸Å­ ¹öÆÛ¸¦ ¼øÈ¯ÇØ¼­ ÄÜ¼Ö¿¡ Ç¥½ÃÇÔ
-			// ±×¸®°í ´Ù½Ã GrapSomeData ÇÔ¼ö¸¦ È£ÃâÇÒ°ÅÀÓ
-			// ¾öÃ»³ª°Ô °³Â¼´Â Àç±ÍÇÔ¼ö¶ó°í »ý°¢ÇÒ ¼ö ÀÖÁö¸¸
-			// async_read_some ÇÔ¼ö´Â asio context ¿¡°Ô ÇÒ ÀÏÀ» ³Ñ°ÜÁÖ°í ¹Ù·Î ¹ÝÈ¯ÇÔ
-			// Áï asio ´Â ¹é±×¶ó¿îµå¿¡¼­ µ¹¾Æ°¥ °Í
-			// ¼ÒÄÏ¿¡ µ¥ÀÌÅÍ°¡ ³¯¶ó¿Â °æ¿ì, ¿ì¸®°¡ ¶÷´Ù ÇÔ¼ö ¾È¿¡ µÐ ÄÚµå¸¦ ±¸ÇöÇÒ °Í
+			// ì—ëŸ¬ ì½”ë“œê°€ ì—†ë‹¤ë©´ ì–¼ë§ˆë‚˜ ë§Žì€ ë°”ì´íŠ¸ë¥¼ ë°›ì•˜ëŠ”ì§€ í‘œì‹œí•˜ê³ ,
+			// length ë§Œí¼ ë²„í¼ë¥¼ ìˆœí™˜í•´ì„œ ì½˜ì†”ì— í‘œì‹œí•¨
+			// ê·¸ë¦¬ê³  ë‹¤ì‹œ GrapSomeData í•¨ìˆ˜ë¥¼ í˜¸ì¶œí• ê±°ìž„
+			// ì—„ì²­ë‚˜ê²Œ ê°œì©ŒëŠ” ìž¬ê·€í•¨ìˆ˜ë¼ê³  ìƒê°í•  ìˆ˜ ìžˆì§€ë§Œ
+			// async_read_some í•¨ìˆ˜ëŠ” asio context ì—ê²Œ í•  ì¼ì„ ë„˜ê²¨ì£¼ê³  ë°”ë¡œ ë°˜í™˜í•¨
+			// ì¦‰ asio ëŠ” ë°±ê·¸ë¼ìš´ë“œì—ì„œ ëŒì•„ê°ˆ ê²ƒ
+			// ì†Œì¼“ì— ë°ì´í„°ê°€ ë‚ ë¼ì˜¨ ê²½ìš°, ìš°ë¦¬ê°€ ëžŒë‹¤ í•¨ìˆ˜ ì•ˆì— ë‘” ì½”ë“œë¥¼ êµ¬í˜„í•  ê²ƒ
 		}
 	);
 
-	// ºñµ¿±âÀûÀ¸·Î »ý°¢ÇÏ¸é
-	// ¿ì¸®´Â ½Ã°£ Áö¿¬°ú ¹öÆÛ »çÀÌÁî ÀÌ½´¸¦ ±Øº¹ÇÔ
+	// ë¹„ë™ê¸°ì ìœ¼ë¡œ ìƒê°í•˜ë©´
+	// ìš°ë¦¬ëŠ” ì‹œê°„ ì§€ì—°ê³¼ ë²„í¼ ì‚¬ì´ì¦ˆ ì´ìŠˆë¥¼ ê·¹ë³µí•¨
 }
 
 int main() {
@@ -59,22 +59,22 @@ int main() {
 	asio::error_code ec;
 
 	asio::io_context context;
-	// ¿ì¸®´Â context °¡ ¾î¶°ÇÑ Á¶°Ç¿¡ ÀÇÇØ ´ë±âÇØ¾ßÇÑ´Ù°í ÇÔ
-	// ±×¸®°í °ü·ÃµÈ ÄÚµå¸¦ ½ÇÇàÇÏ°Ô ÇÔ
-	// ÇÏÁö¸¸ ¹º°¡¸¦ ´ë±âÇÒ ¶§´Â ÇÁ·Î±×·¥ÀÇ Èå¸§À» block ÇÔ.
-	// ±×¸®°í ¿ì¸®´Â ÀÔÃâ·Â ¹®¸ÆÀÌ Ç×»ó block ÇÏ´Â°É ¿øÇÏÁö ¾ÊÀ½
-	// ÀÌ ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇØ ¿ì¸®°¡ ÇÒ ¼ö ÀÖ´Â ¿©·¯ ¹æ¹ýÁß ÇÑ °¡ÁöÀÇ ¹æ¹ýÀº
-	// asio context ¸¦ ÀÚ±â¸¸ÀÇ ½º·¹µå¿¡¼­ µ¹¸®´Â °ÅÀÓ
-	// ÀÌ·¯¸é context °¡ ¸ÞÀÎ ½º·¹µå¸¦ ¸·Áö ¾Ê°í ÀÚ½Å¸¸ÀÇ ÄÚµåµéÀ» µ¹¸± ¼ö ÀÖ´Â °ø°£À» ¾ò°Ô µÊ
+	// ìš°ë¦¬ëŠ” context ê°€ ì–´ë– í•œ ì¡°ê±´ì— ì˜í•´ ëŒ€ê¸°í•´ì•¼í•œë‹¤ê³  í•¨
+	// ê·¸ë¦¬ê³  ê´€ë ¨ëœ ì½”ë“œë¥¼ ì‹¤í–‰í•˜ê²Œ í•¨
+	// í•˜ì§€ë§Œ ë­”ê°€ë¥¼ ëŒ€ê¸°í•  ë•ŒëŠ” í”„ë¡œê·¸ëž¨ì˜ íë¦„ì„ block í•¨.
+	// ê·¸ë¦¬ê³  ìš°ë¦¬ëŠ” ìž…ì¶œë ¥ ë¬¸ë§¥ì´ í•­ìƒ block í•˜ëŠ”ê±¸ ì›í•˜ì§€ ì•ŠìŒ
+	// ì´ ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´ ìš°ë¦¬ê°€ í•  ìˆ˜ ìžˆëŠ” ì—¬ëŸ¬ ë°©ë²•ì¤‘ í•œ ê°€ì§€ì˜ ë°©ë²•ì€
+	// asio context ë¥¼ ìžê¸°ë§Œì˜ ìŠ¤ë ˆë“œì—ì„œ ëŒë¦¬ëŠ” ê±°ìž„
+	// ì´ëŸ¬ë©´ context ê°€ ë©”ì¸ ìŠ¤ë ˆë“œë¥¼ ë§‰ì§€ ì•Šê³  ìžì‹ ë§Œì˜ ì½”ë“œë“¤ì„ ëŒë¦´ ìˆ˜ ìžˆëŠ” ê³µê°„ì„ ì–»ê²Œ ë¨
 
 	asio::io_context::work idleWork(context);
-	// asio ¿¡°Ô ±¸¶óÀÏÀ» Áà¼­ context °¡ ³¡³ªÁö ¾Ê°Ô ÇÔ
+	// asio ì—ê²Œ êµ¬ë¼ì¼ì„ ì¤˜ì„œ context ê°€ ëë‚˜ì§€ ì•Šê²Œ í•¨
 	
 	std::thread thrContext = std::thread([&]() { context.run(); });
-	// ½º·¹µå¸¦ ÇÏ³ª ¸¸µé°í context ÀÇ run ÇÔ¼ö¸¦ È£ÃâÇÔ
-	// run ÇÔ¼ö´Â context °¡ ÇÒ ÀÏÀÌ ´Ù ¶³¾îÁ³À» ¶§ ¹ÝÈ¯ÇÔ
-	// ±×·¡¼­ ¿ì¸®°¡ context ¿¡ ¸í·ÉÀ» µî·ÏÇÏ´Â°ÍÀ» ³¡³»ÀÚ ¸¶ÀÚ ½ÇÇàÀÌ ³¡³¯ °ÍÀÓ
-	// ´ÙÇàÀÌµµ asio ´Â ÀÌ¸¦ ÇØ°áÇÏ´Â ¹æ¹ýÀ» ÁÜ
+	// ìŠ¤ë ˆë“œë¥¼ í•˜ë‚˜ ë§Œë“¤ê³  context ì˜ run í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•¨
+	// run í•¨ìˆ˜ëŠ” context ê°€ í•  ì¼ì´ ë‹¤ ë–¨ì–´ì¡Œì„ ë•Œ ë°˜í™˜í•¨
+	// ê·¸ëž˜ì„œ ìš°ë¦¬ê°€ context ì— ëª…ë ¹ì„ ë“±ë¡í•˜ëŠ”ê²ƒì„ ëë‚´ìž ë§ˆìž ì‹¤í–‰ì´ ëë‚  ê²ƒìž„
+	// ë‹¤í–‰ì´ë„ asio ëŠ” ì´ë¥¼ í•´ê²°í•˜ëŠ” ë°©ë²•ì„ ì¤Œ
 
 	asio::ip::tcp::endpoint endpoint(asio::ip::make_address("51.38.81.49", ec), 80);
 
@@ -99,29 +99,29 @@ int main() {
 
 		socket.write_some(asio::buffer(sRequest.data(), sRequest.size()), ec);
 		
-		// Áö³­¹ø¿¡ ÇÑ °ÍµéÀº ÀÌÁ¦ ÇÊ¿ä¾ø°í
+		// ì§€ë‚œë²ˆì— í•œ ê²ƒë“¤ì€ ì´ì œ í•„ìš”ì—†ê³ 
 
 
 		//GrapSomeData(socket);
-		// ¿äÃ»À» º¸³»ÀÚ ¸¶ÀÚ GrapSomeData ÇÔ¼ö¸¦ ½ÇÇàÇÔ
-		// ±×¸®°í ÇÔ¼ö´Â async ·Î ¹«¾ð°¡¸¦ ÀÐ±â À§ÇØ ÀÔÃâ·Â ¹®¸Æ (context º¯¼ö) À» ÁØºñÇÔ
-		// ÇÏÁö¸¸ ¿ì¸® ÇÁ·Î±×·¥ÀÌ ¹«¾ð°¡¸¦ ÇÏ±â Àü¿¡ ³¡³ª¹ö¸²
-		// ¿©±â¼­ ÀÌÁ¦ async °¡ ¾à°£ ÇØ±ò¸®°Ô µé¾î°¨
-		// ÀÔÃâ·Â ¹®¸Æ ÁØºñ¸¦ ¿äÃ»À» º¸³»±â ÀüÀ¸·Î ¿Å±æ°ÅÀÓ
+		// ìš”ì²­ì„ ë³´ë‚´ìž ë§ˆìž GrapSomeData í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•¨
+		// ê·¸ë¦¬ê³  í•¨ìˆ˜ëŠ” async ë¡œ ë¬´ì–¸ê°€ë¥¼ ì½ê¸° ìœ„í•´ ìž…ì¶œë ¥ ë¬¸ë§¥ (context ë³€ìˆ˜) ì„ ì¤€ë¹„í•¨
+		// í•˜ì§€ë§Œ ìš°ë¦¬ í”„ë¡œê·¸ëž¨ì´ ë¬´ì–¸ê°€ë¥¼ í•˜ê¸° ì „ì— ëë‚˜ë²„ë¦¼
+		// ì—¬ê¸°ì„œ ì´ì œ async ê°€ ì•½ê°„ í•´ê¹”ë¦¬ê²Œ ë“¤ì–´ê°
+		// ìž…ì¶œë ¥ ë¬¸ë§¥ ì¤€ë¹„ë¥¼ ìš”ì²­ì„ ë³´ë‚´ê¸° ì „ìœ¼ë¡œ ì˜®ê¸¸ê±°ìž„
 
 		using namespace std::chrono_literals;
 		std::this_thread::sleep_for(20000ms);
-		// ÃæºÐÈ÷ ¸ðµç µ¥ÀÌÅÍ¸¦ ¹Þ±â Àü±îÁö ÇÁ·Î±×·¥ÀÌ ³¡³ªÁö ¾Ê°Ô ÇÔ
+		// ì¶©ë¶„ížˆ ëª¨ë“  ë°ì´í„°ë¥¼ ë°›ê¸° ì „ê¹Œì§€ í”„ë¡œê·¸ëž¨ì´ ëë‚˜ì§€ ì•Šê²Œ í•¨
 	}
 
 	return 0;
 }
 
-// °£´ÜÇÑ ¿¹½Ã¸¦ ÅëÇØ ºñµ¿±âÀûÀ¸·Î »ý°¢ÇÏ¿© ¾ò´Â ÀÌÀÍÀÌ ²Ï ÀÖ´Ù´Â°É ¾Ë ¼ö ÀÖÀ½
-// ÇÏÁö¸¸ º¹ÀâÇÔµµ µû¶ó¿À°Ô µÊ
-// ºñµ¿±â ÇÁ·Î±×·¥À» ¸¸µé°Ô µÇ¸é ÀÏ¹ÝÀûÀÎ ÇÁ·Î±×·¥°ú´Â Á¶±Ý ´Ù¸£°Ô »ý°¢ÇØ¾ß ÇÔ
-// ¿ì¸®°¡ »ý°¢ÇÑ ¼ø¼­´ë·Î ÀÏÀÌ Èê·¯°¡Áö ¾Ê°Ô µÊ
-// ÀÌ°ÍÀÌ µ¿±â ÇÁ·Î±×·¥°úÀÇ Â÷ÀÌÁ¡ÀÓ
-// ÇÏÁö¸¸ ¹Ì·¡¿¡ ¹«¾ð°¡ ½ÇÇàµÇ°Ô ¹«¾ð°¡¸¦ ÁØºñÇØµÐ ´Ù´Â Á¡Àº
-// ½Ã°£ Áö¿¬°ú ¹öÆÛ »çÀÌÁî °°Àº º¯¼öµéÀ» ´ã´çÇÏ±â ¾ÆÁÖ ÁÁÀ½
+// ê°„ë‹¨í•œ ì˜ˆì‹œë¥¼ í†µí•´ ë¹„ë™ê¸°ì ìœ¼ë¡œ ìƒê°í•˜ì—¬ ì–»ëŠ” ì´ìµì´ ê½¤ ìžˆë‹¤ëŠ”ê±¸ ì•Œ ìˆ˜ ìžˆìŒ
+// í•˜ì§€ë§Œ ë³µìž¡í•¨ë„ ë”°ë¼ì˜¤ê²Œ ë¨
+// ë¹„ë™ê¸° í”„ë¡œê·¸ëž¨ì„ ë§Œë“¤ê²Œ ë˜ë©´ ì¼ë°˜ì ì¸ í”„ë¡œê·¸ëž¨ê³¼ëŠ” ì¡°ê¸ˆ ë‹¤ë¥´ê²Œ ìƒê°í•´ì•¼ í•¨
+// ìš°ë¦¬ê°€ ìƒê°í•œ ìˆœì„œëŒ€ë¡œ ì¼ì´ í˜ëŸ¬ê°€ì§€ ì•Šê²Œ ë¨
+// ì´ê²ƒì´ ë™ê¸° í”„ë¡œê·¸ëž¨ê³¼ì˜ ì°¨ì´ì ìž„
+// í•˜ì§€ë§Œ ë¯¸ëž˜ì— ë¬´ì–¸ê°€ ì‹¤í–‰ë˜ê²Œ ë¬´ì–¸ê°€ë¥¼ ì¤€ë¹„í•´ë‘” ë‹¤ëŠ” ì ì€
+// ì‹œê°„ ì§€ì—°ê³¼ ë²„í¼ ì‚¬ì´ì¦ˆ ê°™ì€ ë³€ìˆ˜ë“¤ì„ ë‹´ë‹¹í•˜ê¸° ì•„ì£¼ ì¢‹ìŒ
 // https://youtu.be/2hNdkYInj4g?si=lzSgCme9ACJL9F2i&t=1373
