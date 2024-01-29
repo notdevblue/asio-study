@@ -137,5 +137,33 @@ namespace han
             // vector 에 데이터를 넣은 순서대로 빼낼 수 있음
             // 하지만 데이터 빼내는 과정 중에서 iterator 를 어디에 저장할 것인지 생각해야 함
         };
+
+        // 아레에서 사용되지만 정의되지 않았으니
+        // 전방 선언을 함
+        // 아레에 사용된걸 보면 이것도 template class 임
+        template <typename T>
+        class connection;
+
+        // 근본적으로 owned_message 는 간단히 일반 메세지를 캡슐화 하지만
+        // 연결 오브젝트의 shared pointer 를 가지고 있음 (connection 오브젝트를 아직 구현하진 않았음)
+        template <typename T>
+        struct owned_message {
+            std::shared_ptr<connection<T>> remote = nullptr; // 정의되진 않았지만 사용하고 있음
+            message<T> msg;
+
+            // 완전성을 위해 output stream 을 overload 할 것
+            // 이러면 cout 을 통해 출력이 가능함
+            friend std::ostream& operator<<(std::ostream& os, const owned_message<T>& msg) {
+                os << msg.msg;
+                return os;
+            }
+        };
+
+        // 이 프레임워크에서 사용되는 모든 것들은
+        // 근본적으로 메세지를 정의하는 enum class 에 의존하는 템플릿 클레스 일 것임
+
+        // 대채로 클라이언트나 서버에 도착하는 메세지들은
+        // 도착하는데 사용된 연결 오브젝트의 태그를 들고 있을 것 (위에 shared_ptr 말하는 거임. 영어 어렵다...)
+        // 이를 통해 필요한 경우, 메세지를 전송할 연결을 특정할 수 있음
     }
 }
